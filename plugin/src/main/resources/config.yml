@@ -1,0 +1,116 @@
+# ═══════════════════════════════════════════════════════════════
+#   Дрон-камикадзе — все настройки
+#   После правки: /drone reload
+# ═══════════════════════════════════════════════════════════════
+
+# ───────────────────────────────────────────────── РЕЦЕПТ КРАФТА
+recipe:
+  enabled: true
+  amount: 1                 # сколько дронов даёт один крафт
+  # Три строки по три предмета через запятую. Пустая клетка — AIR.
+  row1: "IRON_INGOT, REDSTONE_TORCH, IRON_INGOT"
+  row2: "PHANTOM_MEMBRANE, TNT, PHANTOM_MEMBRANE"
+  row3: "IRON_INGOT, REDSTONE_BLOCK, IRON_INGOT"
+
+# ───────────────────────────────────────────────────── ПРЕДМЕТ
+item:
+  material: "PHANTOM_MEMBRANE"
+  name: "&b&lДрон Камикадзе"
+  glow: true                # блеск зачарования
+  lore:
+    - "&7Поставьте на землю и задайте курс."
+    - "&7Скорость: &f8 блоков/сек"
+    - "&cСбивается стрелой."
+  entity-name: "&c☠ Дрон Камикадзе"
+  show-name-always: true    # видна ли бирка без наведения
+
+# ───────────────────────────────────────────────────────── ПОЛЁТ
+flight:
+  speed-blocks-per-second: 8.0
+  max-range: 400            # радиус связи, дальше — самоподрыв
+  max-seconds: 60           # заряд батареи
+  water-kills: true         # вода тушит дрон без взрыва
+  allow-look-launch: true   # кнопка «лететь по взгляду»
+  climb-first: true         # сначала набрать высоту, потом идти к цели
+  climb-height: 12          # на сколько блоков подняться
+
+# ───────────────────────────────────────────────────────── ВЗРЫВ
+explosion:
+  power: 4.0                # 4.0 = обычный ТНТ
+  break-blocks: true        # ВЫКЛЮЧИТЕ на сервере с постройками
+  set-fire: false
+  damage-players: true      # наносит ли взрыв урон игрокам
+  damage-owner: true        # бьёт ли по своему оператору
+  explode-when-shot: false  # true = взрывается там, где сбили
+
+# ──────────────────────────────────────────────────── САМ ДРОН
+drone:
+  health: 6.0
+  max-per-player: 3         # лимит одновременно
+  cooldown-seconds: 10      # пауза между запусками
+  arrow-instant-kill: true  # одна стрела — минус дрон
+  can-be-shot-by-anyone: true    # false = сбить может только владелец
+  remove-flying-on-stop: true    # убирать летящие дроны при выключении сервера
+
+# ───────────────────────────────────────────── ЗВУК И ЧАСТИЦЫ
+effects:
+  trail-particle: "SMOKE_NORMAL"
+  trail-count: 2
+  engine-sound: "ENTITY_BEE_LOOP_AGGRESSIVE"
+  engine-volume: 0.8
+  engine-pitch: 1.6
+  engine-interval-ticks: 6       # 20 = раз в секунду
+  launch-sound: "ENTITY_BEE_LOOP_AGGRESSIVE"
+  place-sound: "BLOCK_BEACON_ACTIVATE"
+  fizzle-sound: "ENTITY_GENERIC_EXTINGUISH_FIRE"
+  fizzle-particle: "SMOKE_LARGE"
+
+# ─────────────────────────────────────────────── ИНТЕРФЕЙС
+hud:
+  enabled: true             # строка над хотбаром во время полёта
+  update-ticks: 2
+
+menu:
+  title: "&8Пульт управления"
+  coords-name: "&a&lЗадать координаты"
+  look-name: "&b&lЛететь по взгляду"
+  info-name: "&e&lИнформация"
+  pickup-name: "&6&lЗабрать дрон"
+  filler: "GRAY_STAINED_GLASS_PANE"
+
+# ──────────────────────────────────────────────── ОГРАНИЧЕНИЯ
+protection:
+  spawn-radius: 50          # нельзя целиться ближе к спавну мира. 0 = выкл
+  warn-radius: 60           # предупреждать игроков рядом о запуске. 0 = выкл
+  worlds-blacklist:
+    - "spawn"
+  no-grief-worlds: []       # миры, где взрыв не ломает блоки
+
+# ─────────────────────────────────────────────── СООБЩЕНИЯ
+messages:
+  placed: "&aДрон установлен. Кликните по нему правой кнопкой."
+  ask-coords: "&eНапишите координаты в чат: &fX Y Z"
+  ask-coords-hint: "&7Например: &f{x} {y} {z}&7. Отмена — напишите &fотмена"
+  bad-coords: "&cНужно три числа через пробел. Например: &f100 70 -250"
+  bad-height: "&cТакой высоты в этом мире нет."
+  too-far: "&cДо цели {dist} блоков, а дальность дрона {max}."
+  cancelled: "&7Запуск отменён."
+  launched: "&aДрон пошёл на цель {x} {y} {z}. Подлётное время ~{sec} сек."
+  launched-look: "&aДрон пошёл по направлению взгляда."
+  no-target-look: "&cНе вижу цели — посмотрите на блок."
+  hud: "&c✈ &fдо цели &e{dist} &fбл. &7· в полёте {sec} с"
+  hit: "&cДетонация в точке {x} {y} {z}"
+  shot-down: "&cСвязь с дроном потеряна — он сбит."
+  you-shot-down: "&aВы сбили дрон!"
+  lost-battery: "&cБатарея села, дрон сдетонировал."
+  lost-range: "&cДрон вышел за радиус связи и сдетонировал."
+  already-flying: "&cДрон уже в полёте."
+  not-yours: "&cЭто не ваш дрон."
+  drone-gone: "&cДрона больше нет."
+  picked-up: "&aДрон разобран и возвращён в инвентарь."
+  too-many: "&cУ вас уже {n} дронов. Больше нельзя."
+  cooldown: "&cПерезарядка ещё {sec} сек."
+  no-permission: "&cНет прав на использование дронов."
+  world-blocked: "&cВ этом мире дроны запрещены."
+  spawn-protected: "&cСлишком близко к спавну — цель запрещена."
+  incoming: "&c&l⚠ Слышен гул дрона поблизости!"

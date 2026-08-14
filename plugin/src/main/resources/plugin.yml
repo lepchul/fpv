@@ -1,0 +1,19 @@
+name: KamikazeDrone
+version: '${project.version}'
+main: ru.factor.drone.DronePlugin
+api-version: '1.20'
+author: ZovPatriot
+description: FPV-дроны камикадзе с вводом координат.
+
+commands:
+  drone:
+    description: Управление дронами
+    usage: /drone <give|stop|reload>
+
+permissions:
+  drone.use:
+    description: Ставить и запускать дроны
+    default: true
+  drone.admin:
+    description: Команды give и reload, управление чужими дронами
+    default: op
